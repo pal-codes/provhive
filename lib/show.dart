@@ -7,7 +7,7 @@ class ShowData extends StatelessWidget {
       backgroundColor: Colors.white,
       body: Container(
         margin: EdgeInsets.all(20),
-        child: Column(
+        child: ListView(
           children: <Widget>[
             Text('one'),
             Text('two')

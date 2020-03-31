@@ -7,7 +7,7 @@ import 'package:provhive/models/user.dart';
 void main() async {
   await Hive.initFlutter();
   runApp(MyApp());
-  final user = Hive.openBox<User>('userBox');
+  Hive.openBox<User>('userBox');
 }
 
 class MyApp extends StatelessWidget {
@@ -23,6 +23,10 @@ class HomePage extends StatelessWidget {
 
   final TextEditingController userController = TextEditingController();
 
+  addUser() { 
+    Hive.box('userBox').add('controller.value');
+  }
+
   @override
   Widget build(BuildContext context) {
     Hive.isBoxOpen('userBox');
@@ -31,7 +35,7 @@ class HomePage extends StatelessWidget {
         backgroundColor: Colors.white,
         body: Container(
           padding: EdgeInsets.all(20),
-          child: Column(
+          child: ListView(
             children: <Widget>[
               Container(
                 margin: EdgeInsets.only(top: 320),
