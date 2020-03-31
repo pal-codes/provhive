@@ -11,5 +11,5 @@ class User {
   @HiveField(1)
   String number;
 
-  User(this.name, this.number);
+  User({this.name, this.number});
 }

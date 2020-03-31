@@ -7,7 +7,6 @@ import 'package:provhive/models/user.dart';
 void main() async {
   await Hive.initFlutter();
   runApp(MyApp());
-  Hive.openBox<User>('userBox');
 }
 
 class MyApp extends StatefulWidget {
@@ -24,20 +23,23 @@ class _MyAppState extends State<MyApp> {
   }
 }
 
-
 class HomePage extends StatefulWidget {
   @override
   _HomePageState createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
-final TextEditingController nameController = TextEditingController();
+  final TextEditingController nameController = TextEditingController();
   final TextEditingController numberController = TextEditingController();
 
   // Function to add the user data.
   addUser() {
-    Hive.box('userBox').add(nameController.value.toString());
-    Hive.box('userBox').add(numberController.value.toString());
+    final Box<User> nowBox = Hive.box('userBox');
+    User newUser =
+        User(name: nameController.text, number: numberController.text);
+    // Hive.box('userBox').add(newUser);
+    nowBox.add(newUser);
+    print('NEW USER:' + newUser.toString());
   }
 
   @override
@@ -103,8 +105,6 @@ final TextEditingController nameController = TextEditingController();
                     //   context,
                     //   MaterialPageRoute(builder: (context) => ShowData()),
                     // );
-                    final userInfo = Hive.box<User>('userBox').get('name');
-                    print(userInfo.toString());
                   },
                   child: Text('Check list'),
                 ),
@@ -112,5 +112,5 @@ final TextEditingController nameController = TextEditingController();
             ],
           ),
         ));
-  }  
+  }
 }
