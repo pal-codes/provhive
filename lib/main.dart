@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:provhive/show.dart';
+// import 'package:provhive/show.dart';
 import 'package:provhive/models/user.dart';
 
 void main() async {
@@ -10,7 +10,12 @@ void main() async {
   Hive.openBox<User>('userBox');
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
@@ -19,18 +24,26 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class HomePage extends StatelessWidget {
 
-  final TextEditingController userController = TextEditingController();
+class HomePage extends StatefulWidget {
+  @override
+  _HomePageState createState() => _HomePageState();
+}
 
-  addUser() { 
-    Hive.box('userBox').add('controller.value');
+class _HomePageState extends State<HomePage> {
+final TextEditingController nameController = TextEditingController();
+  final TextEditingController numberController = TextEditingController();
+
+  // Function to add the user data.
+  addUser() {
+    Hive.box('userBox').add(nameController.value.toString());
+    Hive.box('userBox').add(numberController.value.toString());
   }
 
   @override
   Widget build(BuildContext context) {
     Hive.isBoxOpen('userBox');
-    print('HIVE IS: ' + Hive.isBoxOpen('userBox').toString());
+    print('HIVE IS OPEN: ' + Hive.isBoxOpen('userBox').toString());
     return new Scaffold(
         backgroundColor: Colors.white,
         body: Container(
@@ -41,7 +54,7 @@ class HomePage extends StatelessWidget {
                 margin: EdgeInsets.only(top: 320),
                 child: TextField(
                   maxLines: 1,
-                  controller: userController,
+                  controller: nameController,
                   decoration: InputDecoration(
                       filled: true,
                       labelText: 'Enter your name',
@@ -54,6 +67,7 @@ class HomePage extends StatelessWidget {
                 margin: EdgeInsets.only(top: 12),
                 child: TextField(
                   maxLines: 1,
+                  controller: numberController,
                   decoration: InputDecoration(
                       filled: true,
                       labelText: 'Enter your phone number',
@@ -65,17 +79,32 @@ class HomePage extends StatelessWidget {
               Container(
                 margin: EdgeInsets.only(top: 50),
                 child: FlatButton(
-                  padding: EdgeInsets.all(10),
+                  padding: EdgeInsets.only(top: 20, bottom: 20),
+                  textColor: Colors.white,
+                  splashColor: Colors.white,
+                  color: Colors.black,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12)),
+                  onPressed: addUser,
+                  child: Text('Submit'),
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.only(top: 10),
+                child: FlatButton(
+                  padding: EdgeInsets.only(top: 20, bottom: 20),
                   textColor: Colors.white,
                   splashColor: Colors.white,
                   color: Colors.black,
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12)),
                   onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => ShowData()),
-                    );
+                    // Navigator.push(
+                    //   context,
+                    //   MaterialPageRoute(builder: (context) => ShowData()),
+                    // );
+                    final userInfo = Hive.box<User>('userBox').get('name');
+                    print(userInfo.toString());
                   },
                   child: Text('Check list'),
                 ),
@@ -83,5 +112,5 @@ class HomePage extends StatelessWidget {
             ],
           ),
         ));
-  }
+  }  
 }
