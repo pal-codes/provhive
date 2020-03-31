@@ -26,6 +26,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Hive.isBoxOpen('userBox');
+    print('HIVE IS: ' + Hive.isBoxOpen('userBox').toString());
     return new Scaffold(
         backgroundColor: Colors.white,
         body: Container(
