@@ -17,8 +17,8 @@ class UserAdapter extends TypeAdapter<User> {
       for (var i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return User(
-      fields[0] as String,
-      fields[1] as String,
+      name: fields[0] as String,
+      number: fields[1] as String,
     );
   }
 

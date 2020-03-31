@@ -4,9 +4,12 @@ import 'package:hive_flutter/hive_flutter.dart';
 // import 'package:provhive/show.dart';
 import 'package:provhive/models/user.dart';
 
+
 void main() async {
   await Hive.initFlutter();
   runApp(MyApp());
+  Hive.registerAdapter<User>(UserAdapter());
+  await Hive.openBox<User>('userBox');
 }
 
 class MyApp extends StatefulWidget {
@@ -39,7 +42,8 @@ class _HomePageState extends State<HomePage> {
         User(name: nameController.text, number: numberController.text);
     // Hive.box('userBox').add(newUser);
     nowBox.add(newUser);
-    print('NEW USER:' + newUser.toString());
+    print('NEW USER:' + newUser.name.toString());
+    print('NEW NUMBER: ' + newUser.number.toString());
   }
 
   @override
