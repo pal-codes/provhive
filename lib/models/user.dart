@@ -1,7 +1,11 @@
-class User {
-  final String name;
-  final String number;
-  final String emailAddress;
+import 'package:hive/hive.dart';
 
-  User(this.name, this.number, this.emailAddress);
+class User {
+  @HiveField(0)
+  String name;
+
+  @HiveField(1)
+  String number;
+
+  User(this.name, this.number);
 }
