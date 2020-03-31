@@ -40,7 +40,6 @@ class _HomePageState extends State<HomePage> {
     final Box<User> nowBox = Hive.box('userBox');
     User newUser =
         User(name: nameController.text, number: numberController.text);
-    // Hive.box('userBox').add(newUser);
     nowBox.add(newUser);
     print('NEW USER:' + newUser.name.toString());
     print('NEW NUMBER: ' + newUser.number.toString());

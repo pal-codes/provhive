@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+//Screen to show the list of people 
 class ShowData extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
