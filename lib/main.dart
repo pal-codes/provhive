@@ -4,12 +4,11 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provhive/show.dart';
 import 'package:provhive/models/user.dart';
 
-
 void main() async {
   await Hive.initFlutter();
   runApp(MyApp());
   Hive.registerAdapter<User>(UserAdapter());
-  await Hive.openBox<User>('userBox');
+  Hive.openBox<User>('userBox');
 }
 
 class MyApp extends StatefulWidget {
@@ -37,16 +36,15 @@ class _HomePageState extends State<HomePage> {
 
   // Function to add the user data.
   addUser() {
-    final Box<User> nowBox = Hive.box('userBox');
+    Box<User> nowBox = Hive.box<User>('userBox');
     User newUser =
         User(name: nameController.text, number: numberController.text);
     nowBox.add(newUser);
-    print('NEW USER:' + newUser.name.toString());
-    print('NEW NUMBER: ' + newUser.number.toString());
   }
 
   @override
   Widget build(BuildContext context) {
+    
     Hive.isBoxOpen('userBox');
     print('HIVE IS OPEN: ' + Hive.isBoxOpen('userBox').toString());
     return new Scaffold(
@@ -90,7 +88,9 @@ class _HomePageState extends State<HomePage> {
                   color: Colors.black,
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12)),
-                  onPressed: addUser,
+                  onPressed: (){ 
+                    addUser();
+                  },
                   child: Text('Submit'),
                 ),
               ),
