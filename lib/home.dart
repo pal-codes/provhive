@@ -21,7 +21,13 @@ class _HomePageState extends State<HomePage> {
     var newUser = User(
         name: nameController.value.toString(),
         number: numberController.value.toString());
-    Hive.box('userBox').add(newUser);
+    Hive.box<User>('userBox').add(newUser);
+  }
+
+  // Function to print user data.
+  showUser() {
+    var theUser = Hive.box<User>('userBox').getAt(1);
+    print("THE USER: " + theUser.name.toString());
   }
 
   @override
@@ -89,6 +95,7 @@ class _HomePageState extends State<HomePage> {
                       context,
                       MaterialPageRoute(builder: (context) => ShowData()),
                     );
+                    showUser();
                   },
                   child: Text('Check list'),
                 ),
