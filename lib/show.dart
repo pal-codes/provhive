@@ -10,14 +10,14 @@ class ShowData extends StatefulWidget {
 }
 
 class _ShowDataState extends State<ShowData> {
-  Box box = Hive.box<User>('userBox');
+  static Box box = Hive.box<User>('userBox');
+  final List<User> userList = box.values;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
       body: Container(
           margin: EdgeInsets.all(20),
-          color: Colors.red,
           child: ValueListenableBuilder(
             child: Container(
               color: Colors.yellow,
@@ -32,9 +32,15 @@ class _ShowDataState extends State<ShowData> {
                 );
               } else {
                 return Container(
-                  color: Colors.white,
-                  margin: EdgeInsets.all(50),
-                  child: Text('HEY! ' + box.values.last.name),
+                  child: ListView.builder(
+                    itemCount: 1,
+                    itemBuilder: (BuildContext context, userlist) {
+                      return Container(
+                        child:
+                            Text('HELO - ' + userList.map((e) => e).toString()),
+                      );
+                    },
+                  ),
                 );
               }
             },
