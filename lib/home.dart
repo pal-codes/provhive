@@ -1,5 +1,5 @@
 import 'package:hive/hive.dart';
-// import 'package:hive_flutter/hive_flutter.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provhive/show.dart';
 import 'package:provhive/models/user.dart';
 import 'package:flutter/material.dart';
@@ -18,10 +18,10 @@ class _HomePageState extends State<HomePage> {
     // var box =  Hive.box<User>('userBox');
     // User newUser =
     //     User(name: nameController.text, number: numberController.text);
-    var newUser = User(
-        name: nameController.value.toString(),
-        number: numberController.value.toString());
+    var newUser =
+        User(name: nameController.text, number: numberController.text);
     Hive.box<User>('userBox').add(newUser);
+    // Hive.box<User>('userBox').listenable();
   }
 
   // Function to print user data.
