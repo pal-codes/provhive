@@ -15,13 +15,13 @@ class _HomePageState extends State<HomePage> {
 
   // Function to add the user data.
   addUser() {
-    Box<User> box = Hive.box<User>('userBox');
+    // var box =  Hive.box<User>('userBox');
     // User newUser =
     //     User(name: nameController.text, number: numberController.text);
     var newUser = User(
         name: nameController.value.toString(),
         number: numberController.value.toString());
-    box.add(newUser);
+    Hive.box('userBox').add(newUser);
   }
 
   @override

@@ -5,5 +5,5 @@ import 'package:provhive/models/user.dart';
 Future<void> configureHive() async{
   await Hive.initFlutter();
   Hive.registerAdapter<User>(UserAdapter());
-  await Hive.openBox('userBox');
+  await Hive.openBox<User>('userBox');
 }
