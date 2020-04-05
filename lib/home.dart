@@ -1,5 +1,4 @@
 import 'package:hive/hive.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provhive/show.dart';
 import 'package:provhive/models/user.dart';
 import 'package:flutter/material.dart';
@@ -15,9 +14,6 @@ class _HomePageState extends State<HomePage> {
 
   // Function to add the user data.
   addUser() {
-    // var box =  Hive.box<User>('userBox');
-    // User newUser =
-    //     User(name: nameController.text, number: numberController.text);
     var newUser =
         User(name: nameController.text, number: numberController.text);
     Hive.box<User>('userBox').add(newUser);
